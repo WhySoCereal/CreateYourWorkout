@@ -15,8 +15,10 @@
 		B86FF2522529DC590027E020 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B86FF2512529DC590027E020 /* Preview Assets.xcassets */; };
 		B86FF2552529DC590027E020 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B86FF2532529DC590027E020 /* LaunchScreen.storyboard */; };
 		B896F3982529E1A3004DA986 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896F3972529E1A3004DA986 /* Workout.swift */; };
-		B896F3A0252A0E95004DA986 /* WorkoutVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896F39F252A0E95004DA986 /* WorkoutVM.swift */; };
 		B896F3AD252A2D03004DA986 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896F3AC252A2D03004DA986 /* TextFieldAlert.swift */; };
+		B896F3B1252B19A6004DA986 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B896F3B0252B19A6004DA986 /* Exercise.swift */; };
+		B8C0255B252C56CE00633474 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0255A252C56CE00633474 /* WorkoutView.swift */; };
+		B8C0255F252C604B00633474 /* EditableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C0255E252C604B00633474 /* EditableText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +32,10 @@
 		B86FF2542529DC590027E020 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B86FF2562529DC590027E020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B896F3972529E1A3004DA986 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
-		B896F39F252A0E95004DA986 /* WorkoutVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutVM.swift; sourceTree = "<group>"; };
 		B896F3AC252A2D03004DA986 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
+		B896F3B0252B19A6004DA986 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		B8C0255A252C56CE00633474 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		B8C0255E252C604B00633474 /* EditableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				B896F3972529E1A3004DA986 /* Workout.swift */,
+				B896F3B0252B19A6004DA986 /* Exercise.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -96,7 +101,6 @@
 		B896F39B2529E317004DA986 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B896F39F252A0E95004DA986 /* WorkoutVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -106,6 +110,8 @@
 			children = (
 				B86FF2492529DC580027E020 /* WorkoutMenuView.swift */,
 				B896F3AC252A2D03004DA986 /* TextFieldAlert.swift */,
+				B8C0255A252C56CE00633474 /* WorkoutView.swift */,
+				B8C0255E252C604B00633474 /* EditableText.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,11 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B896F3AD252A2D03004DA986 /* TextFieldAlert.swift in Sources */,
+				B896F3B1252B19A6004DA986 /* Exercise.swift in Sources */,
+				B8C0255B252C56CE00633474 /* WorkoutView.swift in Sources */,
 				B86FF24D2529DC580027E020 /* CreateYourWorkout.xcdatamodeld in Sources */,
 				B86FF2462529DC580027E020 /* AppDelegate.swift in Sources */,
-				B896F3A0252A0E95004DA986 /* WorkoutVM.swift in Sources */,
 				B86FF2482529DC580027E020 /* SceneDelegate.swift in Sources */,
 				B896F3982529E1A3004DA986 /* Workout.swift in Sources */,
+				B8C0255F252C604B00633474 /* EditableText.swift in Sources */,
 				B86FF24A2529DC580027E020 /* WorkoutMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

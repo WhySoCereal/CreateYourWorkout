@@ -14,6 +14,7 @@ struct TextFieldAlert<Presenting>: View where Presenting: View {
     @Binding var text: String
     let presenting: Presenting
     let title: String
+    let action: () -> Void
 
     var body: some View {
         GeometryReader { (deviceSize: GeometryProxy) in
@@ -46,6 +47,7 @@ struct TextFieldAlert<Presenting>: View where Presenting: View {
                         Button(action: {
                             withAnimation {
                                 isPresented.toggle()
+                                action()
                             }
                         }) {
                             Text("Add")
@@ -70,12 +72,13 @@ extension View {
     func textFieldAlert(isPresented: Binding<Bool>,
                         placeholderText: String,
                         text: Binding<String>,
-                        title: String) -> some View {
+                        title: String,
+                        action: @escaping () -> Void) -> some View {
         TextFieldAlert(isPresented: isPresented,
                        placeholderText: placeholderText,
                        text: text,
                        presenting: self,
-                       title: title)
+                       title: title, action: action)
     }
 
 }
