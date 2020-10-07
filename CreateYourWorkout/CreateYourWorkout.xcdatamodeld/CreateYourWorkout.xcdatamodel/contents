@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Exercise" representedClassName="Exercise" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="time" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="exercises" inverseEntity="Workout"/>
+        <attribute name="name_" optional="YES" attributeType="String"/>
+        <attribute name="order_" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="workout_" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="exercises_" inverseEntity="Workout"/>
     </entity>
     <entity name="Workout" representedClassName="Workout" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workout" inverseEntity="Exercise"/>
+        <attribute name="name_" optional="YES" attributeType="String"/>
+        <relationship name="exercises_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workout_" inverseEntity="Exercise"/>
     </entity>
     <elements>
-        <element name="Exercise" positionX="-63" positionY="-20" width="128" height="103"/>
+        <element name="Exercise" positionX="-88.87109375" positionY="24.54296875" width="128" height="28"/>
         <element name="Workout" positionX="212.16015625" positionY="10.01953125" width="128" height="73"/>
     </elements>
 </model>

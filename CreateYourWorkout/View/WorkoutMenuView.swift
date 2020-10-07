@@ -16,20 +16,15 @@ struct WorkoutMenuView: View {
     @State private var newWorkoutItem = ""
     @State private var addWorkoutShow = false
     
-    
     var body: some View {
         NavigationView {
             List {
                 ForEach(workouts) { workout in
-                    NavigationLink(destination: WorkoutView()) {
-                        EditableText("\(workout.name!)", isEditing: editMode.isEditing) { newName in
+                    NavigationLink(destination: WorkoutView(workout)) {
+                        EditableText(workout.name, isEditing: editMode.isEditing) { newName in
                             workout.name = newName
                             
-                            do {
-                                try context.save()
-                            } catch(let error) {
-                                print("Couldn't update name field in Workout entity: \(error.localizedDescription)")
-                            }
+                            try? context.save()
                         }
                     }
                 }
@@ -37,11 +32,8 @@ struct WorkoutMenuView: View {
                     let deletedItem = workouts[indexSet.first!]
                     context.delete(deletedItem)
                     
-                    do {
-                        try context.save()
-                    } catch(let error) {
-                        print("Couldn't delete a workout in Workout entity: \(error.localizedDescription)")
-                    }
+                    try? context.save()
+
                 }
             }
             .navigationTitle(Text("Workouts"))
@@ -54,11 +46,7 @@ struct WorkoutMenuView: View {
                 let workout = Workout(context: context)
                 workout.name = newWorkoutItem
                 newWorkoutItem.removeAll()
-                do {
-                    try context.save()
-                } catch(let error) {
-                    print("Couldn't save workout to CoreData: \(error.localizedDescription)")
-                }
+                try? context.save()
             }
         })
     }
@@ -71,14 +59,7 @@ struct WorkoutMenuView: View {
         })
         .disabled(addWorkoutShow)
     }
-//
-//    private var editWorkoutButton: some View {
-//        Button(action: {
-//            editMode = .active
-//        }, label: {
-//            Text("Edit")
-//        })
-//    }
+
 }
 
 
