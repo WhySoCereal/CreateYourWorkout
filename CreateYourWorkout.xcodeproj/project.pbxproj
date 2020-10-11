@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B856A139253370AF00663078 /* StepperField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B856A138253370AF00663078 /* StepperField.swift */; };
+		B856A13C2533908500663078 /* TimeIntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B856A13B2533908400663078 /* TimeIntervalPicker.swift */; };
 		B86FF2462529DC580027E020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86FF2452529DC580027E020 /* AppDelegate.swift */; };
 		B86FF2482529DC580027E020 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86FF2472529DC580027E020 /* SceneDelegate.swift */; };
 		B86FF24A2529DC580027E020 /* WorkoutMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86FF2492529DC580027E020 /* WorkoutMenuView.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B856A138253370AF00663078 /* StepperField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepperField.swift; sourceTree = "<group>"; };
+		B856A13B2533908400663078 /* TimeIntervalPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPicker.swift; sourceTree = SOURCE_ROOT; };
 		B86FF2422529DC580027E020 /* CreateYourWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreateYourWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B86FF2452529DC580027E020 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B86FF2472529DC580027E020 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,9 +115,11 @@
 		B896F39C2529E321004DA986 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B856A13B2533908400663078 /* TimeIntervalPicker.swift */,
 				B86FF2492529DC580027E020 /* WorkoutMenuView.swift */,
 				B8C0255A252C56CE00633474 /* WorkoutView.swift */,
 				B8C0258C252E801200633474 /* ExerciseForm.swift */,
+				B856A138253370AF00663078 /* StepperField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,7 +217,9 @@
 				B896F3B1252B19A6004DA986 /* Exercise.swift in Sources */,
 				B8C0255B252C56CE00633474 /* WorkoutView.swift in Sources */,
 				B86FF24D2529DC580027E020 /* CreateYourWorkout.xcdatamodeld in Sources */,
+				B856A13C2533908500663078 /* TimeIntervalPicker.swift in Sources */,
 				B86FF2462529DC580027E020 /* AppDelegate.swift in Sources */,
+				B856A139253370AF00663078 /* StepperField.swift in Sources */,
 				B86FF2482529DC580027E020 /* SceneDelegate.swift in Sources */,
 				B896F3982529E1A3004DA986 /* Workout.swift in Sources */,
 				B8C0255F252C604B00633474 /* EditableText.swift in Sources */,
