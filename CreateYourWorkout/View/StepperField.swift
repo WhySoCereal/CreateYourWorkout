@@ -24,14 +24,14 @@ struct StepperField: View {
     var body: some View {
         HStack {
             Text(title)
+            Spacer()
+            Stepper(title, value: $value, in: 1...999)
+                .labelsHidden()
             TextField("Enter Value", value: $value, formatter: NumberFormatter())
                 .multilineTextAlignment(.center)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(minWidth: 15, maxWidth: 60)
                 .alignmentGuide(.controlAlignment) { $0[.leading] }
-            Spacer()
-            Stepper(title, value: $value, in: 1...999)
-                .labelsHidden()
         }
         .alignmentGuide(.leading) {
             self.alignToControl

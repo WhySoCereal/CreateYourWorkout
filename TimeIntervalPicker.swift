@@ -11,34 +11,74 @@ struct TimeIntervalPicker: View {
     @State var title: String
     @Binding var value: TimeInterval
     
-    var minutes: String {
+    private var minutes: String {
         let x = Int(value / 60)
         return x < 10 ? "0\(x)" : "\(x)"
     }
     
-    var seconds: String {
+    private var seconds: String {
         let x = Int(value) % 60
         return x < 10 ? "0\(x)" : "\(x)"
     }
     
-    var cornerRadius: CGFloat = 13
+    private var timerText: some View {
+        Text("\(minutes) : \(seconds)")
+            .lineLimit(1)
+    }
+    
+    private var timePicker: some View {
+        HStack {
+            Picker("\(minutes)", selection: $value) {
+                ForEach(0..<60) { seconds in
+                    Text(secondsToString(seconds: seconds))
+                        .frame(maxWidth: 30)
+                }
+            }
+            .pickerStyle(WheelPickerStyle())
+            .frame(maxWidth: 40, maxHeight: 80)
+            .clipped()
+            
+            Text(":")
+            Picker("\(seconds)", selection: $value) {
+                ForEach(0..<60) { seconds in
+                    Text(secondsToString(seconds: seconds))
+                }
+            }
+            .pickerStyle(InlinePickerStyle())
+            .frame(maxWidth: 40, maxHeight: 80)
+            .clipped()
+        }
+        
+        
+    }
+    
+    private func secondsToString(seconds: Int) -> String {
+        (seconds < 10) ? "0\(seconds)" : String(seconds)
+    }
+
+    
+    var cornerRadius: CGFloat = 10
     
     var body: some View {
         HStack {
             Text(title)
             Spacer()
-            Button("\(minutes) : \(seconds)") {
+
+            timePicker
+//            RoundedRectangle(cornerRadius: cornerRadius)
+//                .foregroundColor(Color(#colorLiteral(red: 0.8771176934, green: 0.8771176934, blue: 0.8771176934, alpha: 1)))
+//                .overlay(timePicker)
+//                .frame(maxWidth: 500)
                 
-            }
-            .padding(5)
-            .background(RoundedRectangle(cornerRadius: cornerRadius).foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))))
-            
         }
     }
 }
 
 struct TimeIntervalPicker_Previews: PreviewProvider {
     static var previews: some View {
-        TimeIntervalPicker(title: "Time Interval", value: .constant(0))
+        Form {
+            TimeIntervalPicker(title: "Time Interval:", value: .constant(0))
+        }
+        
     }
 }

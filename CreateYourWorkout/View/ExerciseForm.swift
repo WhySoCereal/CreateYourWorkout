@@ -40,18 +40,16 @@ struct ExerciseForm: View {
                     
                     // Select the number of repetitions for the exercise
                     StepperField(title: "Repetitions:", value: $exerciseReps)
-                    
-                    // Select a time interval for the exercise
-                    DatePicker("Please enter a time:", selection: $date, displayedComponents: .hourAndMinute)
-                    
+
                     // TIME INTERVAL
                     TimeIntervalPicker(title: "Time Interval:", value: $timeInterval)
                 }
             } else {
-                Section {
+                Section(header: Text("Rest Period")) {
                     // MARK: - Rest selected
-                    
-                    Text("Rest Period")
+
+                    // TIME INTERVAL
+                    TimeIntervalPicker(title: "Time Interval:", value: $timeInterval)
                 }
             }
             doneButton
