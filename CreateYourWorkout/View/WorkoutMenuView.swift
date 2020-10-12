@@ -20,7 +20,8 @@ struct WorkoutMenuView: View {
         NavigationView {
             List {
                 ForEach(workouts) { workout in
-                    NavigationLink(destination: WorkoutView(workout)) {
+                    NavigationLink(destination: WorkoutView(workout)
+                                    .environment(\.managedObjectContext, context)) {
                         EditableText(workout.name, isEditing: editMode.isEditing) { newName in
                             workout.name = newName
                             
@@ -45,6 +46,7 @@ struct WorkoutMenuView: View {
             if !newWorkoutItem.isEmpty {
                 let workout = Workout(context: context)
                 workout.name = newWorkoutItem
+                workout.id = UUID()
                 newWorkoutItem.removeAll()
                 try? context.save()
             }

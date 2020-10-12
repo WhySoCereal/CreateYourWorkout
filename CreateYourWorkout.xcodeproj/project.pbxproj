@@ -115,10 +115,10 @@
 		B896F39C2529E321004DA986 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B856A13B2533908400663078 /* TimeIntervalPicker.swift */,
 				B86FF2492529DC580027E020 /* WorkoutMenuView.swift */,
 				B8C0255A252C56CE00633474 /* WorkoutView.swift */,
 				B8C0258C252E801200633474 /* ExerciseForm.swift */,
+				B856A13B2533908400663078 /* TimeIntervalPicker.swift */,
 				B856A138253370AF00663078 /* StepperField.swift */,
 			);
 			path = View;

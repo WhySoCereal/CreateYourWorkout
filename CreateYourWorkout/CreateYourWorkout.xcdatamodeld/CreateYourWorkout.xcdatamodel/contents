@@ -3,16 +3,17 @@
     <entity name="Exercise" representedClassName="Exercise" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="order_" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reps" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps_" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="workout_" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="exercises_" inverseEntity="Workout"/>
     </entity>
     <entity name="Workout" representedClassName="Workout" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
-        <relationship name="exercises_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workout_" inverseEntity="Exercise"/>
+        <relationship name="exercises_" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Exercise" inverseName="workout_" inverseEntity="Exercise"/>
     </entity>
     <elements>
-        <element name="Exercise" positionX="-88.87109375" positionY="24.54296875" width="128" height="28"/>
-        <element name="Workout" positionX="212.16015625" positionY="10.01953125" width="128" height="73"/>
+        <element name="Exercise" positionX="-88.87109375" positionY="24.54296875" width="128" height="118"/>
+        <element name="Workout" positionX="212.16015625" positionY="10.01953125" width="128" height="88"/>
     </elements>
 </model>

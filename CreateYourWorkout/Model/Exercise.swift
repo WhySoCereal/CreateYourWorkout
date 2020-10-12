@@ -25,6 +25,11 @@ extension Exercise {
         get { Int(order_) }
         set { order_ = Int64(newValue) }
     }
+    
+    var reps: Int {
+        get { Int(reps_) }
+        set { reps_ = Int64(newValue) }
+    }
 }
 
 extension Exercise: Comparable {
