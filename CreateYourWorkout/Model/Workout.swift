@@ -35,7 +35,7 @@ extension Workout {
                 using:[NSSortDescriptor(key: "order_", ascending: true)]
             ) as! Array<Exercise>
         }
-
-        //set { exercises_ = NSOrderedSet(object: newValue) }
+        
+        set { exercises_ = NSOrderedSet(array: newValue) }
     }
 }
