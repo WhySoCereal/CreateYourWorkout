@@ -16,45 +16,67 @@ struct ExerciseForm: View {
         _showingExerciseForm = isPresented
         _workout = workout
     }
-    
+
     @State private var choseExercise: Bool = true
+    @State private var title: String = "Add Exercise"
 
     var body: some View {
-        Form {
-            Picker("Add to your workout:", selection: $choseExercise) {
-                Text("Exercise").tag(true)
-                Text("Rest").tag(false)
-            }.pickerStyle(SegmentedPickerStyle())
-            
-            if choseExercise {
-                exerciseSection()
-            } else {
-                restSection()
+        VStack(alignment: .leading) {
+            Text(title)
+                .bold()
+                .font(.title)
+                .padding([.top, .leading], 20)
+            Form {
+                Picker("Add to your workout:", selection: $choseExercise) {
+                    Text("Exercise").tag(true)
+                    Text("Rest").tag(false)
+                }.pickerStyle(SegmentedPickerStyle())
+                
+                if choseExercise {
+                    exerciseSection()
+                        .onAppear {
+                            title = "Add Exercise"
+                        }
+                } else {
+                    restSection()
+                        .onAppear {
+                            title = "Add Rest"
+                        }
+                }
+                doneButton()
             }
-            doneButton
         }
     }
     
-    private var doneButton: some View {
-        Button("Save") {
-            let exercise = Exercise(context: context)
-            
-            exercise.order = workout.exercises_?.count ?? 0
-            
-            if !exerciseName.isEmpty {
-                exercise.name = exerciseName
-            } else { return }
+    @ViewBuilder
+    private func doneButton() -> some View {
+        HStack {
+            Spacer()
+            Button("Save") {
+                let exercise = Exercise(context: context)
+                
+                exercise.order = workout.exercises_?.count ?? 0
+                
+                if choseExercise {
+                    if !exerciseName.isEmpty {
+                        exercise.name = exerciseName
+                    } else { return }
 
-            if exerciseReps > 0 {
-                exercise.reps = exerciseReps
-            } else if timeInterval > 0 {
-                exercise.time = timeInterval
+                    if exerciseReps > 0 {
+                        exercise.reps = exerciseReps
+                    } else if timeInterval > 0 {
+                        exercise.time = timeInterval
+                    }
+                    
+                    workout.addToExercises_(exercise)
+                    try? context.save()
+                    
+                    showingExerciseForm = false
+                } else {
+                    
+                }
             }
-            
-            workout.addToExercises_(exercise)
-            try? context.save()
-            
-            showingExerciseForm = false
+            Spacer()
         }
     }
     

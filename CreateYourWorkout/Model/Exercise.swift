@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 extension Exercise {
-    static func fetchWorkoutExercises(forWorkout workout: String) -> NSFetchRequest<Exercise> {
+    static func fetchWorkoutExercises(forWorkout workoutId: UUID) -> NSFetchRequest<Exercise> {
         let request: NSFetchRequest<Exercise> = NSFetchRequest(entityName: "Exercise")
-        request.predicate = NSPredicate(format: "workout.name = %@", workout)
+        request.predicate = NSPredicate(format: "workout_.id_ = %@", workoutId as CVarArg)
         request.sortDescriptors = [NSSortDescriptor(key: "order_", ascending: true)]
         return request
     }

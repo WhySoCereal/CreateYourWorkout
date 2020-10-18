@@ -19,23 +19,23 @@ extension Workout {
     
     static func fetchWorkout(workout: Workout) -> NSFetchRequest<Workout> {
         let request = NSFetchRequest<Workout>(entityName: "Workout")
-        request.predicate = NSPredicate(format: "id == %@", workout.id! as CVarArg)
+        request.predicate = NSPredicate(format: "id_ == %@", workout.id as CVarArg)
         request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
         return request
+    }
+    
+    public var id: UUID {
+        get { id_! }
+        set { id_ = newValue }
     }
     
     var name: String {
         get { name_ ?? "Unknown" }
         set { name_ = newValue }
     }
-    
-    var exercises: Array<Exercise> {
-        get {
-            exercises_?.sortedArray(
-                using:[NSSortDescriptor(key: "order_", ascending: true)]
-            ) as! Array<Exercise>
-        }
-        
-        set { exercises_ = NSOrderedSet(array: newValue) }
+
+    var exercises: Set<Exercise> {
+        get {(exercises_ as? Set<Exercise>) ?? []}
+        set { exercises_ = newValue as NSSet }
     }
 }
