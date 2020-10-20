@@ -30,12 +30,39 @@ extension Exercise {
         get { Int(reps_) }
         set { reps_ = Int64(newValue) }
     }
+    
+    var isReps: Bool {
+        reps != 0 ? true : false
+    }
+    
+    var isTimed: Bool {
+        time != 0 ? true : false
+    }
 }
 
 extension Exercise: Comparable {
     public static func < (lhs: Exercise, rhs: Exercise) -> Bool {
         lhs.order < rhs.order
     }
+}
+
+// MARK: - For Testing and previews
+extension Exercise {
+    static func timedExerciseTest() -> Exercise {
+        let ex = Exercise()
+        ex.name = "Timed Exercise"
+        ex.reps = 0
+        ex.time = 100
+        ex.order = 0
+        return ex
+    }
     
-    
+    static func repsExerciseTest() -> Exercise {
+        let ex = Exercise()
+        ex.name = "Repetitions Exercise"
+        ex.reps = 100
+        ex.time = 0
+        ex.order = 0
+        return ex
+    }
 }

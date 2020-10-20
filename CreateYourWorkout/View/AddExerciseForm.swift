@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct ExerciseForm: View {
+struct AddExerciseForm: View {
     @Environment(\.managedObjectContext) var context
     @Binding private var workout: Workout
     @Binding private var showingExerciseForm: Bool
+    
     
     init(isPresented: Binding<Bool>, workout: Binding<Workout>) {
         _showingExerciseForm = isPresented
@@ -82,7 +83,7 @@ struct ExerciseForm: View {
     
     @State private var repetitionsSelected: Bool = true
     @State private var exerciseName: String = ""
-    @State private var exerciseReps: Int = 0
+    @State private var exerciseReps: Int = 1
     @State private var timeInterval: Double = 0
     
     @ViewBuilder

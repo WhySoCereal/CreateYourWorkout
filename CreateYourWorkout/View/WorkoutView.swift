@@ -8,12 +8,17 @@
 import SwiftUI
 import CoreData
 
+enum ActiveSheet: String {
+   case addExercise = "add", editExercise = "edit"
+}
+
 struct WorkoutView: View {
     @FetchRequest private var results: FetchedResults<Workout>
     @FetchRequest private var exercises: FetchedResults<Exercise>
     @Environment(\.managedObjectContext) private var context
     @State var editMode: EditMode = .inactive
     @State private var workout: Workout
+    @State private var exercise: Exercise!
     
     init(_ workout: Workout) {
         _workout = State(wrappedValue: workout)
@@ -21,30 +26,40 @@ struct WorkoutView: View {
         _exercises = FetchRequest(fetchRequest: Exercise.fetchWorkoutExercises(forWorkout: workout.id))
     }
     
+    @State private var showSheet = false
+    @State private var activeSheet: ActiveSheet!
+    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(exercises) { exercise in
-                    Text(exercise.name)
-                }
-                .onDelete(perform: onDelete)
-                .onMove(perform: onMove)
+        List {
+            ForEach(exercises) { exercise in
+                ExerciseRow(exercise: exercise)
+                    .onTapGesture {
+                        activeSheet = .editExercise
+                        self.exercise = exercise
+                        showSheet = true
+                    }
             }
-            .navigationTitle(workout.name)
-            .navigationBarItems(leading: EditButton(), trailing: addExerciseButton)
-            .environment(\.editMode, $editMode)
+            .onDelete(perform: onDelete)
+            .onMove(perform: onMove)
         }
-        .sheet(isPresented: $showingExerciseForm) {
-            ExerciseForm(isPresented: $showingExerciseForm, workout: $workout)
-                .environment(\.managedObjectContext, context)
+        .navigationTitle(workout.name)
+        .navigationBarItems(leading: EditButton(), trailing: addExerciseButton)
+        .environment(\.editMode, $editMode)
+        .sheet(isPresented: $showSheet) {
+            if activeSheet == .addExercise {
+                AddExerciseForm(isPresented: $showSheet, workout: $workout)
+                    .environment(\.managedObjectContext, context)
+            } else {
+                EditExerciseForm(isPresented: $showSheet, exercise: $exercise)
+                    .environment(\.managedObjectContext, context)
+            }
         }
     }
     
-    @State var showingExerciseForm: Bool = false
-    
     private var addExerciseButton: some View {
         Button(action: {
-            showingExerciseForm = true
+            activeSheet = .addExercise
+            showSheet = true
         }, label: {
             Image(systemName: "plus")
         })
