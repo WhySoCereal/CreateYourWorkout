@@ -8,8 +8,11 @@
 import SwiftUI
 import CoreData
 
-enum ActiveSheet: String {
-   case addExercise = "add", editExercise = "edit"
+enum ActiveSheet: Int, Identifiable {
+    var id: Int {
+        return self.rawValue
+    }
+    case addExercise = 0, editExercise = 1
 }
 
 struct WorkoutView: View {
@@ -26,17 +29,15 @@ struct WorkoutView: View {
         _exercises = FetchRequest(fetchRequest: Exercise.fetchWorkoutExercises(forWorkout: workout.id))
     }
     
-    @State private var showSheet = false
-    @State private var activeSheet: ActiveSheet!
+    @State private var activeSheet: ActiveSheet?
     
     var body: some View {
         List {
             ForEach(exercises) { exercise in
                 ExerciseRow(exercise: exercise)
                     .onTapGesture {
-                        activeSheet = .editExercise
                         self.exercise = exercise
-                        showSheet = true
+                        activeSheet = .editExercise
                     }
             }
             .onDelete(perform: onDelete)
@@ -45,12 +46,12 @@ struct WorkoutView: View {
         .navigationTitle(workout.name)
         .navigationBarItems(leading: EditButton(), trailing: addExerciseButton)
         .environment(\.editMode, $editMode)
-        .sheet(isPresented: $showSheet) {
-            if activeSheet == .addExercise {
-                AddExerciseForm(isPresented: $showSheet, workout: $workout)
+        .sheet(item: $activeSheet) { item in
+            if item == .addExercise {
+                AddExerciseForm(isActive: $activeSheet, workout: $workout)
                     .environment(\.managedObjectContext, context)
             } else {
-                EditExerciseForm(isPresented: $showSheet, exercise: $exercise)
+                EditExerciseForm(isActive: $activeSheet, exercise: $exercise)
                     .environment(\.managedObjectContext, context)
             }
         }
@@ -59,7 +60,6 @@ struct WorkoutView: View {
     private var addExerciseButton: some View {
         Button(action: {
             activeSheet = .addExercise
-            showSheet = true
         }, label: {
             Image(systemName: "plus")
         })

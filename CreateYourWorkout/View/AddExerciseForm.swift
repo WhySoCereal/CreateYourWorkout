@@ -10,11 +10,15 @@ import SwiftUI
 struct AddExerciseForm: View {
     @Environment(\.managedObjectContext) var context
     @Binding private var workout: Workout
-    @Binding private var showingExerciseForm: Bool
+    @Binding private var activeSheet: ActiveSheet?
+    @State private var repetitionsSelected: Bool = true
+    @State private var exerciseName: String = ""
+    @State private var exerciseReps: Int = 1
+    @State private var timeInterval: Double = 0
     
     
-    init(isPresented: Binding<Bool>, workout: Binding<Workout>) {
-        _showingExerciseForm = isPresented
+    init(isActive: Binding<ActiveSheet?>, workout: Binding<Workout>) {
+        _activeSheet = isActive
         _workout = workout
     }
 
@@ -28,10 +32,12 @@ struct AddExerciseForm: View {
                 .font(.title)
                 .padding([.top, .leading], 20)
             Form {
-                Picker("Add to your workout:", selection: $choseExercise) {
-                    Text("Exercise").tag(true)
-                    Text("Rest").tag(false)
-                }.pickerStyle(SegmentedPickerStyle())
+                Section(header: Text("Type")) {
+                    Picker("Add to your workout:", selection: $choseExercise) {
+                        Text("Exercise").tag(true)
+                        Text("Rest").tag(false)
+                    }.pickerStyle(SegmentedPickerStyle())
+                }
                 
                 if choseExercise {
                     exerciseSection()
@@ -44,47 +50,11 @@ struct AddExerciseForm: View {
                             title = "Add Rest"
                         }
                 }
-                doneButton()
             }
         }
     }
-    
-    @ViewBuilder
-    private func doneButton() -> some View {
-        HStack {
-            Spacer()
-            Button("Save") {
-                let exercise = Exercise(context: context)
-                
-                exercise.order = workout.exercises_?.count ?? 0
-                
-                if choseExercise {
-                    if !exerciseName.isEmpty {
-                        exercise.name = exerciseName
-                    } else { return }
-
-                    if exerciseReps > 0 {
-                        exercise.reps = exerciseReps
-                    } else if timeInterval > 0 {
-                        exercise.time = timeInterval
-                    }
-                    
-                    workout.addToExercises_(exercise)
-                    try? context.save()
-                    
-                    showingExerciseForm = false
-                } else {
-                    
-                }
-            }
-            Spacer()
-        }
-    }
-    
-    @State private var repetitionsSelected: Bool = true
-    @State private var exerciseName: String = ""
-    @State private var exerciseReps: Int = 1
-    @State private var timeInterval: Double = 0
+        
+    // MARK: - Exercise Section
     
     @ViewBuilder
     private func exerciseSection() -> some View {
@@ -107,14 +77,87 @@ struct AddExerciseForm: View {
                 exerciseReps = 0
                 timeInterval = 0
             }
-           
+        }
+        
+        HStack {
+            Spacer()
+            cancelButton
+            Spacer()
+            Divider()
+            Spacer()
+            exerciseSaveButton
+            Spacer()
         }
     }
     
+    private var exerciseSaveButton: some View {
+        Button("Save") {
+            let exercise = Exercise(context: context)
+            
+            exercise.order = workout.exercises_?.count ?? 0
+            
+            if choseExercise {
+                if !exerciseName.isEmpty {
+                    exercise.name = exerciseName
+                } else { return }
+
+                if exerciseReps > 0 {
+                    exercise.reps = exerciseReps
+                } else if timeInterval > 0 {
+                    exercise.time = timeInterval
+                }
+                
+                workout.addToExercises_(exercise)
+                try? context.save()
+                
+                activeSheet = nil
+            } else {
+                // TODO: else case here
+            }
+        }
+    }
+    
+    // MARK: - Rest Section
+    
     @ViewBuilder
     private func restSection() -> some View {
-        Section(header: Text("Rest Period")) {
+        Section(header: Text("Rest")) {
             TimeIntervalPicker(title: "Time Interval:", value: $timeInterval)
+        }
+        
+        HStack {
+            Spacer()
+            cancelButton.background(Rectangle().foregroundColor(.blue))
+            Spacer()
+            Divider()
+            Spacer()
+            restSaveButton.background(Rectangle().foregroundColor(.red))
+            Spacer()
+        }
+    }
+    
+    private var restSaveButton: some View {
+        Button("Save") {
+            if timeInterval == 0 {
+                // TODO: alert for user to enter a valid time
+            }
+            
+            let exercise = Exercise(context: context)
+            exercise.name = "Rest"
+            exercise.order = workout.exercises_?.count ?? 0
+            exercise.time = timeInterval
+            
+            workout.addToExercises_(exercise)
+            try? context.save()
+            
+            activeSheet = nil
+        }
+    }
+    
+    // MARK: - Utility
+    private var cancelButton: some View {
+        Button("Cancel") {
+            activeSheet = nil
         }
     }
 }
